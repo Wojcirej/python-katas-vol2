@@ -25,5 +25,11 @@ class KataGeneratorTemplater:
             )
         return content
     
+    def kata_test_definition_file_content(self):
+        content = "import pytest\n\n"
+        content += "from katas.{}.{} import {}\n\n".format(self.kata_name, self.kata_name, self.kata_name)
+        content += "@pytest.mark.parametrize(\n    "
+        return content
+    
     def humanize_kata_name(self):
         return " ".join(self.kata_name.split("_")).capitalize()

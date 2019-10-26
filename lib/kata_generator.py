@@ -42,5 +42,5 @@ class KataGenerator:
         
     def create_kata_test_definition_file(self):
         test_definition_file = open(self.kata_test_definition_file_path, "w+")
-        test_definition_file.write("")
+        test_definition_file.write(self.templater.kata_test_definition_file_content())
         test_definition_file.close()
