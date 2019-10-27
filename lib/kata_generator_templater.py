@@ -28,8 +28,27 @@ class KataGeneratorTemplater:
     def kata_test_definition_file_content(self):
         content = "import pytest\n\n"
         content += "from katas.{}.{} import {}\n\n".format(self.kata_name, self.kata_name, self.kata_name)
-        content += "@pytest.mark.parametrize(\n    "
+        content += "@pytest.mark.parametrize(\n    \""
+        content += self.format_param_names_for_parametrize()
+        content += "\",\n    [\n        "
+        content += "#TODO insert your test arguments here as tuples\n    ]\n"
+        content += ")\n"
+        content += "def test_{}({}):\n    ".format(self.kata_name, self.format_params_for_testing_method())
+        content += "assert({}({})) == result".format(self.kata_name, self.format_params_for_method_call())
         return content
     
     def humanize_kata_name(self):
         return " ".join(self.kata_name.split("_")).capitalize()
+    
+    def format_param_names_for_parametrize(self):
+        params = ",".join(self.params)
+        params += ",result"
+        return params
+    
+    def format_params_for_testing_method(self):
+        params = self.format_params_for_method_call()
+        params += ", result"
+        return params
+    
+    def format_params_for_method_call(self):
+        return ", ".join(self.params)
