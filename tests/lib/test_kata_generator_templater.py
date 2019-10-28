@@ -15,6 +15,17 @@ class TestKataGeneratorTemplater(unittest.TestCase):
     def test_humanize_kata_name_result(self, input, result):
         templater = KataGeneratorTemplater(input)
         assert(templater.humanize_kata_name()) == result
+        
+    @parameterized.expand(
+        [
+            ("underscored_kata_name", "UnderscoredKataName"),
+            ("kata", "Kata"),
+            ("kata_name", "KataName")
+        ]
+    )
+    def test_camelize_kata_name_for_class_name_result(self, input, result):
+        templater = KataGeneratorTemplater(input)
+        assert(templater.camelize_kata_name_for_class_name()) == result
     
     @parameterized.expand(
         [
