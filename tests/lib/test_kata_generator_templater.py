@@ -29,22 +29,11 @@ class TestKataGeneratorTemplater(unittest.TestCase):
     
     @parameterized.expand(
         [
-            (["param1"], "param1, result"),
-            (["kata", "kata2"], "kata, kata2, result"),
-            (["arg1", "arg2", "arg3"], "arg1, arg2, arg3, result")
+            (["param1"], "self, param1, result"),
+            (["kata", "kata2"], "self, kata, kata2, result"),
+            (["arg1", "arg2", "arg3"], "self, arg1, arg2, arg3, result")
         ]
     )
     def test_format_params_for_testing_method(self, params, result):
         templater = KataGeneratorTemplater("random", params)
         assert(templater.format_params_for_testing_method()) == result
-    
-    @parameterized.expand(
-        [
-            (["param1"], "param1,result"),
-            (["kata", "kata2"], "kata,kata2,result"),
-            (["arg1", "arg2", "arg3"], "arg1,arg2,arg3,result")
-        ]
-    )
-    def test_format_param_names_for_parametrize(self, params, result):
-        templater = KataGeneratorTemplater("random", params)
-        assert(templater.format_param_names_for_parametrize()) == result
