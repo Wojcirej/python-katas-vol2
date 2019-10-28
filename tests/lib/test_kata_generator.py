@@ -1,35 +1,32 @@
-import pytest
+import unittest
 import os
+import shutil
 
 from lib.kata_generator import KataGenerator
 from lib.kata_generator_logger import KataGeneratorLogger
 from lib.kata_generator_templater import KataGeneratorTemplater
-from tests.support.clean_up_directories import clean_up_directories
 
-def test_kata_main_directory_existence():
-    logger = KataGeneratorLogger()
-    templater = KataGeneratorTemplater("test_kata")
-    KataGenerator("test_kata", logger, templater, ["param1"]).call()
-    assert(os.path.isdir("./katas/test_kata")) == True
-    clean_up_directories()
+class TestKataGenerator(unittest.TestCase):
+  
+    def setUp(self):
+        self.logger = KataGeneratorLogger()
+        self.templater = KataGeneratorTemplater("test_kata")
+        KataGenerator("test_kata", self.logger, self.templater, ["param1"]).call()
+        
+    def tearDown(self):
+        if os.path.isdir("./katas/test_kata") == True:
+            shutil.rmtree("./katas/test_kata")
+        if os.path.isfile("./tests/katas/test_test_kata.py") == True:
+            os.remove("./tests/katas/test_test_kata.py")
 
-def test_kata_module_file_existence():
-    logger = KataGeneratorLogger()
-    templater = KataGeneratorTemplater("test_kata")
-    KataGenerator("test_kata", logger, templater, ["param1"]).call()
-    assert(os.path.isfile("./katas/test_kata/__init__.py")) == True
-    clean_up_directories()
+    def test_kata_main_directory_existence(self):
+        assert(os.path.isdir("./katas/test_kata")) == True
+
+    def test_kata_module_file_existence(self):
+        assert(os.path.isfile("./katas/test_kata/__init__.py")) == True
     
-def test_kata_readme_file_existence():
-    logger = KataGeneratorLogger()
-    templater = KataGeneratorTemplater("test_kata")
-    KataGenerator("test_kata", logger, templater, ["param1"]).call()
-    assert(os.path.isfile("./katas/test_kata/README.md")) == True
-    clean_up_directories()
+    def test_kata_readme_file_existence(self):
+        assert(os.path.isfile("./katas/test_kata/README.md")) == True
     
-def test_kata_test_definition_file_existence():
-    logger = KataGeneratorLogger()
-    templater = KataGeneratorTemplater("test_kata")
-    KataGenerator("test_kata", logger, templater, ["param1"]).call()
-    assert(os.path.isfile("./tests/katas/test_test_kata.py")) == True
-    clean_up_directories()
+    def test_kata_test_definition_file_existence(self):
+        assert(os.path.isfile("./tests/katas/test_test_kata.py")) == True
