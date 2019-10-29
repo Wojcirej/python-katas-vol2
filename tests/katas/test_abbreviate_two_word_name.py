@@ -15,4 +15,5 @@ class TestIsDivisible(unittest.TestCase):
         ]
     )
     def test_abbreviate_two_word_name(self, name, result):
+        ""
         assert(abbreviate_two_word_name(name)) == result

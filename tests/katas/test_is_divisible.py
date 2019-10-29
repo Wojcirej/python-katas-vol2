@@ -94,4 +94,5 @@ class TestIsDivisible(unittest.TestCase):
         ]
     )
     def test_is_divisible(self, n, x, y, result):
+        ""
         assert(is_divisible(n, x, y)) == result

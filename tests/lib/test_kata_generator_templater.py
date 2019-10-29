@@ -13,6 +13,7 @@ class TestKataGeneratorTemplater(unittest.TestCase):
         ]
     )
     def test_humanize_kata_name_result(self, input, result):
+        "transforms underscored kata name into sentence"
         templater = KataGeneratorTemplater(input)
         assert(templater.humanize_kata_name()) == result
         
@@ -24,6 +25,7 @@ class TestKataGeneratorTemplater(unittest.TestCase):
         ]
     )
     def test_camelize_kata_name_for_class_name_result(self, input, result):
+        "transforms underscored kata name into Pascal case"
         templater = KataGeneratorTemplater(input)
         assert(templater.camelize_kata_name_for_class_name()) == result
     
@@ -35,6 +37,7 @@ class TestKataGeneratorTemplater(unittest.TestCase):
         ]
     )
     def test_format_params_for_method_call(self, params, result):
+        "transforms array of params into comma separated string"
         templater = KataGeneratorTemplater("random", params)
         assert(templater.format_params_for_method_call()) == result
     
@@ -46,5 +49,6 @@ class TestKataGeneratorTemplater(unittest.TestCase):
         ]
     )
     def test_format_params_for_testing_method(self, params, result):
+        "concatenates array of params with 'self' and 'result' for testing method call"
         templater = KataGeneratorTemplater("random", params)
         assert(templater.format_params_for_testing_method()) == result
