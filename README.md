@@ -25,4 +25,11 @@ virtualenv --system-site-packages ~/.python-virtual-environments/python-katas
 # Launch tests
 `pytest`
 # Solution generator
-TODO
+`python3 generator.py <kata_name> [argument names]`
+### Example of solution generator usage
+`python3 generator.py test_kata arg1 arg2`
+will generate template for kata with `test_kata` name in `/katas/` directory.
+
+In this case, file within `katas/test_kata/` directory named `test_kata.py` will contain template for function named `test_kata` taking two arguments: `arg1` and `arg2`.
+
+There will be also file template for tests in `/tests/` directory, named `test_<kata_name>.py`, where unit tests should be placed.
