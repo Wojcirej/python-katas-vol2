@@ -32,9 +32,11 @@ class KataGeneratorTemplater:
         content += "class {}(unittest.TestCase):\n\n".format(self.camelize_kata_name_for_class_name())
         content += "    @parameterized.expand(\n    "
         content += "    [\n        "
-        content += "#TODO insert your test arguments here as tuples\n        ]\n"
-        content += "    )\n"
+        content += "#TODO insert your test arguments here as tuples\n"
+        content += "            #({})".format(self.format_params_for_tuple_example())
+        content += "    \n        ]\n    )\n"
         content += "    def test_{}({}):\n    ".format(self.kata_name, self.format_params_for_testing_method())
+        content += "    \"\"\n    "
         content += "    assert({}({})) == result".format(self.kata_name, self.format_params_for_method_call())
         return content
     
@@ -43,6 +45,11 @@ class KataGeneratorTemplater:
     
     def camelize_kata_name_for_class_name(self):
         return ''.join(x for x in self.kata_name.title() if not x == "_")
+    
+    def format_params_for_tuple_example(self):
+        params = self.format_params_for_method_call()
+        params += ", result"
+        return params
     
     def format_params_for_testing_method(self):
         params = "self, "

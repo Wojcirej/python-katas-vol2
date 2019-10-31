@@ -40,6 +40,18 @@ class TestKataGeneratorTemplater(unittest.TestCase):
         "transforms array of params into comma separated string"
         templater = KataGeneratorTemplater("random", params)
         assert(templater.format_params_for_method_call()) == result
+        
+    @parameterized.expand(
+        [
+            (["param1"], "param1, result"),
+            (["kata", "kata2"], "kata, kata2, result"),
+            (["arg1", "arg2", "arg3"], "arg1, arg2, arg3, result")
+        ]
+    )
+    def test_format_params_for_tuple_example(self, params, result):
+        "concatenates array of params with 'result' for tuple example"
+        templater = KataGeneratorTemplater("random", params)
+        assert(templater.format_params_for_tuple_example()) == result
     
     @parameterized.expand(
         [
